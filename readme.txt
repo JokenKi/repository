@@ -1,4 +1,2 @@
-11111111111
-22222222222
-33333333333
-44444444444
+# This is JokenKi's first time to use Git.
+# I'll develop my project with this in future and make myslef a better programmer !

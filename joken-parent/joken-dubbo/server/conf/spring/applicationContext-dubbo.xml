@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+    http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+	<!-- 提供方应用信息，用于计算依赖关系 -->
+	<dubbo:application name="LZ517-SOA" />
+
+	<!-- 使用redis注册中心暴露服务地址 -->
+	<dubbo:registry address="zookeeper://127.0.0.1:2181"
+		check="false" subscribe="false"/>
+	<!--<dubbo:registry address="redis://127.0.0.1:6379" /> -->
+
+	<!-- 用dubbo协议在20880端口暴露服务 -->
+	<dubbo:protocol name="dubbo" port="20880" />
+
+	<!-- 扫描注解包路径，多个包用逗号分隔，不填pacakge表示扫描当前ApplicationContext中所有的类 -->
+	<dubbo:annotation package="com.jpgk.lz517.service" />
+
+	<!--<dubbo:protocol name="rest" port="8888" server="tomcat" extension="com.alibaba.dubbo.rpc.protocol.rest.support.LoggingFilter" 
+		/> -->
+
+	<!--<dubbo:service interface="com.jpgk.printer.service.IPrineterNoticeService" 
+		ref="PrineterNoticeService" version="1.0.0" protocol="dubbo" /> <dubbo:service 
+		interface="com.jpgk.printer.service.IPrinterService" ref="PrinterService" 
+		version="1.0.0" protocol="dubbo" /> <dubbo:service interface="com.jpgk.printer.service.IPrinterStatusLogService" 
+		ref="PrinterStatusLogService" version="1.0.0" protocol="dubbo" /> <dubbo:service 
+		interface="com.jpgk.printer.service.IPrinterStatusService" ref="PrinterStatusService" 
+		version="1.0.0" protocol="dubbo" /> <dubbo:service interface="com.jpgk.printer.service.IPrinterTaskItemService" 
+		ref="PrinterTaskItemService" version="1.0.0" protocol="dubbo" /> <dubbo:service 
+		interface="com.jpgk.printer.service.IPrinterTaskLogService" ref="PrinterTaskLogService" 
+		version="1.0.0" protocol="dubbo" /> <dubbo:service interface="com.jpgk.printer.service.IPrinterTaskService" 
+		ref="PrinterTaskService" version="1.0.0" protocol="dubbo" /> <dubbo:service 
+		interface="com.jpgk.lz517.service.IStoreService" ref="StoreService" version="1.0.0" 
+		protocol="dubbo" /> <dubbo:service interface="com.jpgk.lz517.service.IUserService" 
+		ref="UserService" version="1.0.0" protocol="dubbo" /> <dubbo:service interface="com.jpgk.printer.service.IPrinterTimeService" 
+		ref="PrinterTimeService" version="1.0.0" protocol="dubbo" /> <dubbo:service 
+		interface="com.jpgk.printer.service.IPrinterTimeTaskService" ref="PrinterTimeTaskService" 
+		version="1.0.0" protocol="dubbo" /> -->
+
+</beans>

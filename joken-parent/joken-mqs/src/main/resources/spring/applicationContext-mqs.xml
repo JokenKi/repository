@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+               http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+               http://www.springframework.org/schema/context
+               http://www.springframework.org/schema/context/spring-context-4.0.xsd
+                http://www.springframework.org/schema/tx
+               http://www.springframework.org/schema/tx/spring-tx-4.0.xsd 
+               http://www.springframework.org/schema/aop
+               http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+                http://www.springframework.org/schema/mvc
+   				 http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+               ">
+	<context:annotation-config />
+	<context:component-scan base-package="com.jpgk">
+	</context:component-scan>
+	<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:prop/mqs.properties</value>
+			</list>
+		</property>
+	</bean>
+	
+ 	<bean id="activeMQConnectionFactory" class="org.apache.activemq.spring.ActiveMQConnectionFactory">
+		<property name="brokerURL" value="${mqs.transport.broker.uri}" />     
+		<property name="useAsyncSend" value="true" />   
+		<property name="optimizeAcknowledge" value="true" />
+		<!-- xx毫秒后不再重发 -->  
+		<property name="optimizeAcknowledgeTimeOut" value="1000" />
+		<!-- 重发间隔 --> 
+		<property name="redeliveryPolicy.initialRedeliveryDelay" value="1" />
+		<property name="redeliveryPolicy.redeliveryDelay" value="1" />
+		<!-- 重发次数 默认6次，-1代表无上限-->
+		<property name="redeliveryPolicy.maximumRedeliveries" value="-1" /> 
+	</bean>
+	
+	<bean id="pooledConnectionFactory" class="org.apache.activemq.jms.pool.PooledConnectionFactory">
+		<property name="connectionFactory" ref="activeMQConnectionFactory"/>
+		<!-- 设置最大连接数 -->
+		<property name="maxConnections" value="200"/>
+		<!-- 每个连接的最大会话数 -->
+		<property name="maximumActiveSessionPerConnection" value="500"/>
+		<!-- 后台对象清理时，休眠时间超过了3000毫秒的对象为过期 -->
+		<property name="timeBetweenExpirationCheckMillis" value="30000"/>
+	</bean>
+
+</beans>

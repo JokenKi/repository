@@ -1,0 +1,53 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.joken</groupId>
+	<artifactId>joken-parent</artifactId>
+	<version>1.0.0</version>
+	<packaging>pom</packaging>
+
+	<name>${project.artifactId}</name>
+	<url>http://maven.apache.org</url>
+	<description>模型项目，主要作用为给下级modules集中打包</description>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>3.8.1</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+	<modules>
+		<module>joken-common</module>
+		<module>joken-api</module>
+		<module>joken-base</module>
+		<module>joken-mqs</module>
+		<module>joken-notice</module>
+		<module>joken-web-base</module>
+		<module>joken-quartz</module>
+		<module>joken-dubbo</module>
+		<module>joken-ice</module>
+		<!-- <module>joken-cat</module> -->
+		<module>joken-disconf</module>
+	</modules>
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<configuration>
+						<testFailureIgnore>true</testFailureIgnore>
+						<skipTests>true</skipTests>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+</project>

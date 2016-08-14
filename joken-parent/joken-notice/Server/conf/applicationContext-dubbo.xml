@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+    http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+    <!-- 提供方应用信息，用于计算依赖关系 -->
+    <dubbo:application name="JPGK-NOTICE-REMOTE" />
+
+    <!-- 使用redis注册中心暴露服务地址 -->
+    <dubbo:registry address="redis://192.168.1.114:6379" />
+
+    <!-- 用dubbo协议在20880端口暴露服务 -->
+    <dubbo:protocol name="dubbo" port="20881" />
+    
+    <!-- 报警通知接口 -->
+    <bean id="NoticeRemoteService" class="com.jpgk.notice.NoticeRemoteServiceImpl" />
+    <dubbo:service interface="com.jpgk.api.NoticeRemoteService"
+        ref="NoticeRemoteService" />
+
+</beans>

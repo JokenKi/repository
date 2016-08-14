@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.jpgk.base.base.mapper">
+
+	<sql id="queryLimitSQL">
+		<if test="__page__ != null ">
+			<if test="__page__.pageSize > 0">
+				<if test="__page__.start > -1">
+					limit ${__page__.start},${__page__.pageSize}
+				</if>
+			</if>
+		</if>
+	</sql>
+
+	<sql id="querySortSQL">
+		<if test="!@com.jpgk.common.utils.StringUtils@isEmpty(sort)">
+			ORDER BY ${sort}
+			<if test="!@com.jpgk.common.utils.StringUtils@isEmpty(dir)"> ${dir}</if>
+			<if test="!@com.jpgk.common.utils.StringUtils@isEmpty(order)">${order}</if>
+		</if>
+		
+		<if test="@com.jpgk.common.utils.MapUtils@getSize(params) >0">
+			<if test="!@com.jpgk.common.utils.StringUtils@isEmpty(params.sort)">
+			ORDER BY ${params.sort}
+			</if>
+		</if>
+	</sql>
+</mapper>

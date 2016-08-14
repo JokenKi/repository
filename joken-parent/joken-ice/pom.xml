@@ -1,0 +1,123 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.joken</groupId>
+		<artifactId>joken-parent</artifactId>
+		<version>1.0.0</version>
+	</parent>
+	<artifactId>joken-ice</artifactId>
+	<packaging>jar</packaging>
+	<name>${project.artifactId}</name>
+  <url>http://maven.apache.org</url>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <dependencies>
+  	<dependency>
+			<groupId>com.zeroc</groupId>
+			<artifactId>ice</artifactId>
+			<version>3.6.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.zeroc</groupId>
+			<artifactId>icebox</artifactId>
+			<version>3.6.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.zeroc</groupId>
+			<artifactId>glacier2</artifactId>
+			<version>3.6.1</version>
+		</dependency>
+		<!-- <dependency>
+			<groupId>com.joken</groupId>
+			<artifactId>joken-base</artifactId>
+			<version>${project.parent.version}</version>
+		</dependency> -->
+		<dependency>
+			<groupId>com.joken</groupId>
+			<artifactId>joken-common</artifactId>
+			<version>${project.parent.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>cglib</groupId>
+			<artifactId>cglib</artifactId>
+			<version>3.2.2</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.eclipse.jetty</groupId>
+			<artifactId>jetty-util</artifactId> 
+			<version>9.2.8.v20150217</version>
+		</dependency>
+  </dependencies>
+  <build>
+	<plugins>
+		<plugin>
+		    	<groupId>org.apache.maven.plugins</groupId>
+			    <artifactId>maven-compiler-plugin</artifactId>
+			    <version>3.1</version>
+			    <configuration>
+			        <source>1.7</source>
+			        <target>1.7</target>
+			        <encoding>UTF-8</encoding>
+			    </configuration>
+		</plugin>
+		<plugin>  
+                <groupId>org.codehaus.mojo</groupId>  
+                <artifactId>appassembler-maven-plugin</artifactId>  
+                <version>1.2.1</version>  
+                <configuration>  
+                    <configurationDirectory>conf</configurationDirectory>  
+                    <configurationSourceDirectory>src/main/resources</configurationSourceDirectory>  
+                    <copyConfigurationDirectory>true</copyConfigurationDirectory>  
+                    <includeConfigurationDirectoryInClasspath>true</includeConfigurationDirectoryInClasspath>  
+                    <assembleDirectory>${project.basedir}/server</assembleDirectory>  
+                    <extraJvmArguments>-Xms20m</extraJvmArguments>  
+                    <binFileExtensions>  
+                        <unix>.sh</unix>  
+                    </binFileExtensions>  
+                    <platforms>  
+                        <platform>windows</platform>  
+                        <platform>unix</platform>  
+                    </platforms>  
+                    <repositoryName>lib</repositoryName>  
+                    <programs>  
+                        <program>  
+                            <mainClass>com.joken.ice.server.AdminPermissionServer</mainClass>  
+                        </program>  
+                    </programs>  
+                </configuration>  
+         </plugin>  
+	</plugins>
+		<resources>
+			<resource>
+				<directory>src/main/java</directory>
+				<includes>
+					<include>**/*</include>
+					<!-- <include>**/*.xml</include>
+					<include>**/*.conf</include> -->
+				</includes>
+				<!-- 是否替换资源中的属性 -->
+				<filtering>false</filtering>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+				<includes>
+					<include>**/*.properties</include>
+					<include>**/*.xml</include>
+				</includes>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+	</build>
+	<repositories>
+	  	<repository>
+				<id>zeroc.repo</id>
+				<url>https://repo.zeroc.com/nexus/content/repositories/releases</url>
+		</repository>
+    </repositories>
+  
+</project>
